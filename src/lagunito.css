@@ -9,6 +9,10 @@
   pointer-events:none;
 }
 
+.lagunito-wrap.is-open{
+  z-index:92;
+}
+
 .lagunito-tip{
   max-width:230px;
   padding:11px 15px;
@@ -44,29 +48,51 @@
   animation:lagunitoPulse 2.2s ease-in-out infinite;
 }
 
-.lagunito-face{
+.lagunito-bird{
   position:relative;
   width:58px;
   height:58px;
-  border-radius:50% 50% 45% 45%;
-  background:linear-gradient(180deg,#fff7e8,#dfeecf 48%,#0f6b85 49%,#083f59);
+  border-radius:52% 52% 48% 48%;
+  background:linear-gradient(180deg,#fffaf1 0%,#f4ead8 45%,#d9edf2 46%,#0f6b85 70%,#083f59 100%);
   border:3px solid #fffaf1;
   overflow:hidden;
   transform-origin:center bottom;
   animation:lagunitoFloat 3s ease-in-out infinite;
 }
 
-.lagunito-hat{
+.lagunito-crest{
   position:absolute;
-  top:-12px;
-  left:50%;
-  transform:translateX(-50%);
-  width:36px;
-  height:28px;
-  display:grid;
-  place-items:center;
-  color:#fffaf1;
-  filter:drop-shadow(0 2px 3px rgba(0,0,0,.3));
+  left:25px;
+  top:3px;
+  width:13px;
+  height:19px;
+  border-radius:12px 12px 2px 12px;
+  background:#e5bd66;
+  transform:rotate(-14deg);
+  box-shadow:-8px 4px 0 -3px #c5942d;
+}
+
+.lagunito-wing{
+  position:absolute;
+  left:-2px;
+  bottom:11px;
+  width:34px;
+  height:24px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#dcebd4,#6d7749);
+  transform:rotate(-16deg);
+  opacity:.9;
+}
+
+.lagunito-beak{
+  position:absolute;
+  right:5px;
+  top:25px;
+  width:15px;
+  height:10px;
+  background:#c5942d;
+  clip-path:polygon(0 0,100% 50%,0 100%);
+  transform-origin:left center;
 }
 
 .lagunito-eye{
@@ -78,40 +104,45 @@
   background:#062b2b;
   animation:lagunitoBlink 4s infinite;
 }
-.lagunito-eye.left{left:19px}
-.lagunito-eye.right{right:19px}
-.lagunito-smile{
+.lagunito-eye.left{left:23px}
+.lagunito-eye.right{right:22px}
+
+.lagunito-mouth{
   position:absolute;
   left:50%;
-  top:31px;
+  top:32px;
   width:18px;
   height:9px;
   border-bottom:3px solid #fffaf1;
   border-radius:0 0 18px 18px;
   transform:translateX(-50%);
 }
-.lagunito-shine{
+
+.lagunito-scarf{
   position:absolute;
-  left:9px;
-  top:34px;
-  width:42px;
+  left:6px;
+  bottom:14px;
+  width:45px;
   height:6px;
-  border-radius:50%;
-  background:rgba(255,255,255,.55);
-  transform:rotate(-8deg);
+  border-radius:999px;
+  background:linear-gradient(90deg,#e5bd66,#fffaf1,#e5bd66);
+  transform:rotate(-6deg);
 }
 
-.lagunito-button.mood-feliz .lagunito-face{animation:lagunitoCelebrate .75s ease-in-out 2}
-.lagunito-button.mood-pensando .lagunito-face{animation:lagunitoThink 1.2s ease-in-out infinite}
+.lagunito-button.mood-happy .lagunito-bird{animation:lagunitoCelebrate .75s ease-in-out 2}
+.lagunito-button.mood-thinking .lagunito-bird{animation:lagunitoThink 1.2s ease-in-out infinite}
+.lagunito-button.mood-talking .lagunito-beak{animation:lagunitoTalk .35s ease-in-out infinite}
+.lagunito-button.mood-sleepy .lagunito-eye{height:2px;border-radius:999px;animation:none;top:25px}
+.lagunito-button.mood-sleepy .lagunito-mouth{width:12px;height:5px;border-bottom-color:#0d3031;opacity:.45}
 
 .lagunito-panel{
   position:absolute;
   right:0;
   bottom:96px;
-  width:min(380px,calc(100vw - 32px));
+  width:min(405px,calc(100vw - 32px));
   padding:18px;
   border-radius:30px;
-  background:rgba(255,250,241,.96);
+  background:rgba(255,250,241,.97);
   border:1px solid rgba(197,148,45,.35);
   box-shadow:0 30px 80px rgba(8,45,45,.28);
   backdrop-filter:blur(18px);
@@ -140,6 +171,8 @@
   color:#082d2d;
   font-family:Cinzel,Georgia,serif;
   font-size:1.2rem;
+  text-transform:uppercase;
+  letter-spacing:.04em;
 }
 .lagunito-head span{
   display:block;
@@ -158,12 +191,16 @@
 }
 
 .lagunito-messages{
-  max-height:260px;
+  max-height:285px;
   overflow:auto;
   display:grid;
+  align-content:start;
   gap:10px;
-  padding:16px 2px 12px;
+  padding:16px 4px 12px 2px;
+  scroll-behavior:smooth;
 }
+.lagunito-messages::-webkit-scrollbar{width:8px}
+.lagunito-messages::-webkit-scrollbar-thumb{background:rgba(8,45,45,.22);border-radius:999px}
 .lagunito-message{
   width:fit-content;
   max-width:92%;
@@ -191,6 +228,21 @@
   color:#211708;
   font-weight:900;
 }
+.lagunito-message.typing{
+  display:inline-flex;
+  gap:5px;
+  align-items:center;
+  min-width:54px;
+}
+.lagunito-message.typing span{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#c5942d;
+  animation:lagunitoDots .8s ease-in-out infinite;
+}
+.lagunito-message.typing span:nth-child(2){animation-delay:.12s}
+.lagunito-message.typing span:nth-child(3){animation-delay:.24s}
 
 .lagunito-actions{
   display:grid;
@@ -215,18 +267,41 @@
   transform:translateY(-2px);
   background:#f1e6d4;
 }
-.lagunito-main-cta{
-  width:100%;
-  min-height:48px;
+
+.lagunito-input{
+  display:grid;
+  grid-template-columns:1fr 46px;
+  gap:8px;
   margin-top:12px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:9px;
+}
+.lagunito-input input{
+  min-height:46px;
+  border:1px solid rgba(197,148,45,.28);
   border-radius:999px;
+  padding:0 16px;
+  outline:none;
+  background:#fff;
+  color:#0d3031;
+  font-weight:700;
+}
+.lagunito-input input:focus{
+  border-color:#c5942d;
+  box-shadow:0 0 0 4px rgba(197,148,45,.12);
+}
+.lagunito-input button{
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
   background:#082d2d;
   color:white;
-  font-weight:950;
+}
+
+.floating-cart.is-hidden{
+  opacity:0;
+  transform:translateY(16px) scale(.88);
+  pointer-events:none;
 }
 
 @keyframes lagunitoFloat{
@@ -250,12 +325,22 @@
   0%,100%{transform:rotate(-4deg)}
   50%{transform:rotate(4deg)}
 }
+@keyframes lagunitoTalk{
+  0%,100%{transform:scaleX(1)}
+  50%{transform:scaleX(1.25)}
+}
+@keyframes lagunitoDots{
+  0%,100%{transform:translateY(0);opacity:.45}
+  50%{transform:translateY(-4px);opacity:1}
+}
 
 @media(max-width:760px){
   .lagunito-wrap{right:92px;bottom:18px}
   .lagunito-button{width:64px;height:64px}
-  .lagunito-face{width:48px;height:48px}
+  .lagunito-bird{width:48px;height:48px}
+  .lagunito-eye.left{left:19px}
+  .lagunito-eye.right{right:18px}
   .lagunito-tip{display:none}
-  .lagunito-panel{right:-76px;bottom:78px}
+  .lagunito-panel{right:-76px;bottom:78px;width:min(360px,calc(100vw - 24px))}
   .lagunito-actions{grid-template-columns:1fr}
 }
