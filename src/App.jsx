@@ -54,6 +54,7 @@ export default function App() {
   const [cartOpen, setCartOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [assistantOpen, setAssistantOpen] = useState(false);
 
   const categories = ['Todos', ...new Set(products.map((p) => p.category))];
   const filtered = useMemo(() => {
@@ -68,6 +69,7 @@ export default function App() {
       const found = current.find((item) => item.id === product.id);
       return found ? current.map((item) => item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item) : [...current, { ...product, quantity: 1 }];
     });
+    setAssistantOpen(false);
     setCartOpen(true);
   };
   const changeQuantity = (id, amount) => setCart((current) => current.map((item) => item.id === id ? { ...item, quantity: item.quantity + amount } : item).filter((item) => item.quantity > 0));
@@ -87,8 +89,8 @@ export default function App() {
     <Location />
     <Shop products={filtered} categories={categories} category={category} setCategory={setCategory} query={query} setQuery={setQuery} addToCart={addToCart} setSelectedProduct={setSelectedProduct} />
     <Footer />
-    <LagunitoAssistant />
-    <button className="floating-cart" onClick={() => setCartOpen(true)}><ShoppingCart />{cartCount > 0 && <span>{cartCount}</span>}</button>
+    <LagunitoAssistant open={assistantOpen} setOpen={setAssistantOpen} />
+    <button className={`floating-cart ${assistantOpen ? 'is-hidden' : ''}`} onClick={() => setCartOpen(true)}><ShoppingCart />{cartCount > 0 && <span>{cartCount}</span>}</button>
     <CartDrawer open={cartOpen} setOpen={setCartOpen} cart={cart} changeQuantity={changeQuantity} total={cartTotal} sendOrder={sendOrder} />
     <ProductModal product={selectedProduct} onClose={() => setSelectedProduct(null)} onAdd={addToCart} />
   </div>;
