@@ -1,0 +1,65 @@
+/* Hero cards minimalistas y más arriba */
+.hero-card-stack{
+  transform:translateY(-74px)!important;
+  width:min(420px,100%)!important;
+  gap:10px!important;
+}
+.hero-card-stack div{
+  grid-template-columns:48px 1fr!important;
+  padding:14px 16px!important;
+  border-radius:20px!important;
+  background:linear-gradient(135deg,rgba(7,36,34,.72),rgba(7,36,34,.42))!important;
+  box-shadow:0 14px 32px rgba(0,0,0,.16)!important;
+}
+.hero-card-stack svg{
+  width:34px!important;
+  height:34px!important;
+  padding:7px!important;
+}
+.hero-card-stack strong{
+  font-size:1.08rem!important;
+  letter-spacing:.01em!important;
+}
+.hero-card-stack span{
+  font-size:.94rem!important;
+  line-height:1.35!important;
+}
+
+/* Burbuja: aparece y desaparece suave para no estorbar */
+.lagunito-tip{
+  animation:lagunitoTipCycle 8s ease-in-out infinite!important;
+  transform-origin:right bottom;
+}
+@keyframes lagunitoTipCycle{
+  0%,14%{opacity:0;transform:translateY(8px) scale(.96)}
+  22%,64%{opacity:1;transform:translateY(0) scale(1)}
+  78%,100%{opacity:0;transform:translateY(8px) scale(.96)}
+}
+
+/* Mascota desde código: ojos más separados y expresión más limpia */
+.lagunito-button{
+  right:0!important;
+  width:86px!important;
+  height:86px!important;
+}
+.lagunito-face-pro{
+  width:66px!important;
+  height:66px!important;
+}
+.lagunito-pro-eye.left{left:15px!important}
+.lagunito-pro-eye.right{right:15px!important}
+.lagunito-pro-eye{
+  width:13px!important;
+  height:15px!important;
+}
+.lagunito-pro-smile{
+  top:42px!important;
+  width:26px!important;
+}
+.lagunito-waterline{
+  bottom:13px!important;
+}
+
+@media(max-width:900px){
+  .hero-card-stack{transform:translateY(-35px)!important}
+}
