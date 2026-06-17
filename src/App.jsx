@@ -4,12 +4,12 @@ import { MapPin, Phone, ShoppingCart, Search, Star, Plus, Minus, X, Leaf, Clock,
 import './styles.css';
 
 const brand = {
-  full: 'https://blogger.googleusercontent.com/img/a/AVvXsEjdp5iDroYSocGlCDL9cboxWc_8JtG-KoPtdsVrzv-yafIKVE86OZyAv0hiPV7isOhJNkhGGR58uaLCSNcqt5BVX5cqLtnBvQ2VzkG1TmrnRmReFuoTyAWnXvM_xJ0pe-8qTUHiOcD422V1foflebe1m8wYkJ67_C5iwN-iZvR6a9mw-860VESVuCHEwo4',
+  full: 'https://blogger.googleusercontent.com/img/a/AVvXsEgZakzPPpdXiP8lGx-ZT4azhtgPx9tOML4GB45Yc5q-OiuWdkVFxK8lA0gv1eqSSei2weOqr4OpYqwuzmrAYouBkK4MWgXPN_SI7Il3BumyjHI3NzmJyyoAYLYuTzO9ZkvaraaIZaN8TK5TxE2s9rDkEmAHXeVM-PtuSGSsPHpnNmHOj7rcOen43SOOIfE',
   icon: 'https://blogger.googleusercontent.com/img/a/AVvXsEhDw-0oBlrpawZHRqqBTzVEh16xmnQ_AX80O2acX0vnAckJqNRzmGunCxOGqwcbri5Dslhr4c3DSbSb7YvwxB6jzs3TGYWLqk7yixz_wE1j_f36TesK9eefXVXgCrzZ7eRD4rgytl6VjIRyTW62tepO8xKA6P3jvK1EoFUdfUhVeyUFHSnvK0Op08-Ml9c',
   horizontal: 'https://blogger.googleusercontent.com/img/a/AVvXsEg6759--HKCrx3xOaYthRW4dFBWKz35Nfp6CwGdbJ0pXbWz4qdQfnN8C9K0fa0veXINlhG7uM2ro4w3qA4mZ48cHNPOZQ1pOvtEIirKQU3FoKe9d40G3isa79shCQ-C5KtiG8fVqCdLC2FCp6Tw4KcjpYUqErm0MNi8S9KrlKIcQFjFwxCUIYzpcC4V2aE',
 };
 
-const heroBackground = 'https://blogger.googleusercontent.com/img/a/AVvXsEjWPpq0LWMP_LgEONBAXEScMXd2VbOFsCO162cXkYsCbFZmKL_1xIID7tos7NcV0JT5fqf-V6_jyrCT_4f4ZJZP19hPuZbrr5t0ZgHnrynHTDec5y6JZSq5tz1rZyJTR3qqlLwPutUPzmm5Zs3EXDbYR1PjYohSNnomXI5W4RGfwwYE3-ghm2p8EsUQ9r8';
+const heroBackground = 'https://blogger.googleusercontent.com/img/a/AVvXsEioL5ITOpJTxzGC6Go7Jhn6kPCRp1adkZ9wv2ST12waGKqeA7MfzZnelXhTEtfa6QESmniagY85kAbrDDqb-ANTz2PLySZNG35ljd30yPRzhAlF6ydbl_ujtxtXK69AczZK2lBTIyztfJaKFBrrIvQnP2EcN2r7ZqrqsrpfU8i9cXvI_o_lCpTI_SMnpu0';
 const orgChartImage = 'https://blogger.googleusercontent.com/img/a/AVvXsEiMPwjxuARp9UecjMAqLUTv0q8hEIN01E3ax1jHu-QUac1Mg8voNYa-0sled9cU4jfJBPYvQxssLE66L7eOwyl5tfr279dc_2v6ase9estz0OgZmWjmJuwl0xdSbAG1Za45Uu-RgduuvtZS-jXuXxAs4EQE7dXahf5KL-42KoMq_dId5g3diVGJ5-W0UHQ';
 const whatsappNumber = '593999999999';
 const mapsUrl = 'https://maps.app.goo.gl/2YEMvyfpp8Y15Euk9';
@@ -103,11 +103,17 @@ function Header({ cartCount, onCart, menuOpen, setMenuOpen }) {
 
 function Hero() {
   return <section id="inicio" className="hero-pro">
-    <div className="hero-media" style={{ backgroundImage: `linear-gradient(90deg, rgba(5,28,28,.95), rgba(5,28,28,.64) 43%, rgba(5,28,28,.18)), linear-gradient(0deg, rgba(5,28,28,.78), rgba(5,28,28,.08) 62%), url('${heroBackground}')` }} />
+    <div className="hero-media" style={{ backgroundImage: `linear-gradient(90deg, rgba(4,24,24,.96) 0%, rgba(4,24,24,.78) 32%, rgba(4,24,24,.24) 68%), linear-gradient(0deg, rgba(4,24,24,.55), rgba(4,24,24,.02) 48%), url('${heroBackground}')` }} />
     <motion.div className="hero-panel" initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .75 }}>
-      <img className="hero-logo" src={brand.full} alt="Villa Laguna Restaurante" />
+      <div className="hero-brand-lockup">
+        <img src={brand.icon} alt="Villa Laguna" />
+        <div>
+          <strong>Villa Laguna</strong>
+          <span>Restaurante • Cajabamba</span>
+        </div>
+      </div>
       <p className="micro-label"><Sparkles size={15} /> Restaurante • Cajabamba</p>
-      <h1>Sabores tradicionales con vista a la laguna</h1>
+      <h1>Sabores tradicionales<br />con vista a la laguna</h1>
       <p>Una experiencia gastronómica cálida, elegante y natural, inspirada en la riqueza de Cajabamba y la serenidad de la Laguna de Colta.</p>
       <div className="hero-buttons"><a href="#tienda" className="btn btn-gold"><ShoppingCart size={18} /> Ver tienda</a><a href={mapsUrl} target="_blank" rel="noreferrer" className="btn btn-glass"><Navigation size={18} /> Cómo llegar</a></div>
     </motion.div>
