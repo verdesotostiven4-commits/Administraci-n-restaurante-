@@ -15,98 +15,21 @@
     linear-gradient(180deg,rgba(5,31,31,.78),rgba(5,31,31,.96)),
     url('https://blogger.googleusercontent.com/img/a/AVvXsEioL5ITOpJTxzGC6Go7Jhn6kPCRp1adkZ9wv2ST12waGKqeA7MfzZnelXhTEtfa6QESmniagY85kAbrDDqb-ANTz2PLySZNG35ljd30yPRzhAlF6ydbl_ujtxtXK69AczZK2lBTIyztfJaKFBrrIvQnP2EcN2r7ZqrqsrpfU8i9cXvI_o_lCpTI_SMnpu0') center/cover!important;
 }
-
-.footer-pro:before{
-  content:'Gracias por visitarnos'!important;
-  position:relative!important;
-  z-index:1!important;
-  display:block!important;
-  right:auto!important;
-  top:auto!important;
-  transform:none!important;
-  font-family:Cinzel,Georgia,serif!important;
-  font-size:clamp(2.4rem,4.4vw,5rem)!important;
-  line-height:1!important;
-  color:#fffaf1!important;
-  opacity:1!important;
-  text-shadow:0 18px 45px rgba(0,0,0,.55)!important;
-  pointer-events:none!important;
-}
-
-.footer-pro:after{
-  content:'Villa Laguna'!important;
-  position:absolute!important;
-  left:50%!important;
-  top:50%!important;
-  right:auto!important;
-  bottom:auto!important;
-  width:auto!important;
-  height:auto!important;
-  transform:translate(-50%,-50%)!important;
-  font-family:Cinzel,Georgia,serif!important;
-  font-size:clamp(5rem,15vw,15rem)!important;
-  line-height:1!important;
-  white-space:nowrap!important;
-  color:rgba(255,247,232,.045)!important;
-  background:none!important;
-  pointer-events:none!important;
-}
-
-.footer-pro img{
-  position:relative!important;
-  z-index:1!important;
-  width:min(285px,82vw)!important;
-  max-height:95px!important;
-  object-fit:contain!important;
-  padding:12px 18px!important;
-  border-radius:24px!important;
-  background:rgba(255,250,241,.94)!important;
-  border:1px solid rgba(229,189,102,.55)!important;
-  box-shadow:0 22px 60px rgba(0,0,0,.28)!important;
-}
-
-.footer-pro p{
-  position:relative!important;
-  z-index:1!important;
-  margin:0!important;
-  max-width:760px!important;
-  color:rgba(255,250,241,.94)!important;
-  font-size:1.1rem!important;
-  font-weight:700!important;
-  line-height:1.65!important;
-  text-shadow:0 5px 22px rgba(0,0,0,.3)!important;
-}
-
-.footer-pro p:after{
-  content:'Tradición • Laguna • Hospitalidad • Sabor local'!important;
-  display:block!important;
-  margin-top:10px!important;
-  color:#e5bd66!important;
-  font-size:.78rem!important;
-  letter-spacing:.17em!important;
-  text-transform:uppercase!important;
-  font-weight:950!important;
-}
-
-.footer-pro a{
-  position:relative!important;
-  z-index:1!important;
-  display:inline-flex!important;
-  align-items:center!important;
-  justify-content:center!important;
-  gap:10px!important;
-  margin-top:8px!important;
-  padding:15px 28px!important;
-  border-radius:999px!important;
-  background:linear-gradient(135deg,#c5942d,#e5bd66)!important;
-  color:#211708!important;
-  font-weight:950!important;
-  box-shadow:0 18px 38px rgba(197,148,45,.32)!important;
-}
-
+.footer-pro:before{content:'Gracias por visitarnos'!important;position:relative!important;z-index:1!important;display:block!important;right:auto!important;top:auto!important;transform:none!important;font-family:Cinzel,Georgia,serif!important;font-size:clamp(2.4rem,4.4vw,5rem)!important;line-height:1!important;color:#fffaf1!important;opacity:1!important;text-shadow:0 18px 45px rgba(0,0,0,.55)!important;pointer-events:none!important}
+.footer-pro:after{content:'Villa Laguna'!important;position:absolute!important;left:50%!important;top:50%!important;right:auto!important;bottom:auto!important;width:auto!important;height:auto!important;transform:translate(-50%,-50%)!important;font-family:Cinzel,Georgia,serif!important;font-size:clamp(5rem,15vw,15rem)!important;line-height:1!important;white-space:nowrap!important;color:rgba(255,247,232,.045)!important;background:none!important;pointer-events:none!important}
+.footer-pro img{position:relative!important;z-index:1!important;width:min(285px,82vw)!important;max-height:95px!important;object-fit:contain!important;padding:12px 18px!important;border-radius:24px!important;background:rgba(255,250,241,.94)!important;border:1px solid rgba(229,189,102,.55)!important;box-shadow:0 22px 60px rgba(0,0,0,.28)!important}
+.footer-pro p{position:relative!important;z-index:1!important;margin:0!important;max-width:760px!important;color:rgba(255,250,241,.94)!important;font-size:1.1rem!important;font-weight:700!important;line-height:1.65!important;text-shadow:0 5px 22px rgba(0,0,0,.3)!important}
+.footer-pro p:after{content:'Tradición • Laguna • Hospitalidad • Sabor local'!important;display:block!important;margin-top:10px!important;color:#e5bd66!important;font-size:.78rem!important;letter-spacing:.17em!important;text-transform:uppercase!important;font-weight:950!important}
+.footer-pro a{position:relative!important;z-index:1!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:10px!important;margin-top:8px!important;padding:15px 28px!important;border-radius:999px!important;background:linear-gradient(135deg,#c5942d,#e5bd66)!important;color:#211708!important;font-weight:950!important;box-shadow:0 18px 38px rgba(197,148,45,.32)!important}
 .footer-pro a:hover{transform:translateY(-2px)!important}
 
-@media(max-width:760px){
-  .footer-pro{min-height:380px!important;padding:58px 5vw 70px!important}
-  .footer-pro img{width:min(250px,86vw)!important}
-}
+.hero-card-stack{transform:translateY(-74px)!important;width:min(420px,100%)!important;gap:10px!important}
+.hero-card-stack div{grid-template-columns:48px 1fr!important;padding:14px 16px!important;border-radius:20px!important;background:linear-gradient(135deg,rgba(7,36,34,.72),rgba(7,36,34,.42))!important;box-shadow:0 14px 32px rgba(0,0,0,.16)!important}
+.hero-card-stack svg{width:34px!important;height:34px!important;padding:7px!important}
+.hero-card-stack strong{font-size:1.08rem!important;letter-spacing:.01em!important}
+.hero-card-stack span{font-size:.94rem!important;line-height:1.35!important}
+.lagunito-tip{animation:lagunitoTipCycle 8s ease-in-out infinite!important;transform-origin:right bottom}
+@keyframes lagunitoTipCycle{0%,14%{opacity:0;transform:translateY(8px) scale(.96)}22%,64%{opacity:1;transform:translateY(0) scale(1)}78%,100%{opacity:0;transform:translateY(8px) scale(.96)}}
+.lagunito-button{width:86px!important;height:86px!important}.lagunito-face-pro{width:66px!important;height:66px!important}.lagunito-pro-eye.left{left:15px!important}.lagunito-pro-eye.right{right:15px!important}.lagunito-pro-eye{width:13px!important;height:15px!important}.lagunito-pro-smile{top:42px!important;width:26px!important}.lagunito-waterline{bottom:13px!important}
+@media(max-width:900px){.hero-card-stack{transform:translateY(-35px)!important}}
+@media(max-width:760px){.footer-pro{min-height:380px!important;padding:58px 5vw 70px!important}.footer-pro img{width:min(250px,86vw)!important}}
