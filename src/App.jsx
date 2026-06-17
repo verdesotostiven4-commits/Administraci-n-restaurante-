@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MapPin, Phone, ShoppingCart, Search, Star, Plus, Minus, X, Leaf, Clock, Award, Heart, Send, PlayCircle, Menu, Target, Eye, Gem, Sparkles, ChefHat, Navigation, MessageCircle } from 'lucide-react';
 import './styles.css';
+import LagunitoAssistant from './LagunitoAssistant.jsx';
 
 const brand = {
   full: 'https://blogger.googleusercontent.com/img/a/AVvXsEgZakzPPpdXiP8lGx-ZT4azhtgPx9tOML4GB45Yc5q-OiuWdkVFxK8lA0gv1eqSSei2weOqr4OpYqwuzmrAYouBkK4MWgXPN_SI7Il3BumyjHI3NzmJyyoAYLYuTzO9ZkvaraaIZaN8TK5TxE2s9rDkEmAHXeVM-PtuSGSsPHpnNmHOj7rcOen43SOOIfE',
@@ -86,6 +87,7 @@ export default function App() {
     <Location />
     <Shop products={filtered} categories={categories} category={category} setCategory={setCategory} query={query} setQuery={setQuery} addToCart={addToCart} setSelectedProduct={setSelectedProduct} />
     <Footer />
+    <LagunitoAssistant />
     <button className="floating-cart" onClick={() => setCartOpen(true)}><ShoppingCart />{cartCount > 0 && <span>{cartCount}</span>}</button>
     <CartDrawer open={cartOpen} setOpen={setCartOpen} cart={cart} changeQuantity={changeQuantity} total={cartTotal} sendOrder={sendOrder} />
     <ProductModal product={selectedProduct} onClose={() => setSelectedProduct(null)} onAdd={addToCart} />
