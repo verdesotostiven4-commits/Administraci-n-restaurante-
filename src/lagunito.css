@@ -1,6 +1,6 @@
 .lagunito-wrap{
   position:fixed;
-  right:112px;
+  right:28px;
   bottom:28px;
   z-index:58;
   display:grid;
@@ -27,8 +27,8 @@
 }
 
 .lagunito-button{
-  width:78px;
-  height:78px;
+  width:82px;
+  height:82px;
   border-radius:50%;
   display:grid;
   place-items:center;
@@ -42,107 +42,133 @@
 .lagunito-button:before{
   content:'';
   position:absolute;
-  inset:-8px;
+  inset:-9px;
   border-radius:50%;
   border:1px solid rgba(229,189,102,.35);
   animation:lagunitoPulse 2.2s ease-in-out infinite;
 }
 
-.lagunito-bird{
+.lagunito-face-pro{
   position:relative;
-  width:58px;
-  height:58px;
-  border-radius:52% 52% 48% 48%;
-  background:linear-gradient(180deg,#fffaf1 0%,#f4ead8 45%,#d9edf2 46%,#0f6b85 70%,#083f59 100%);
+  width:62px;
+  height:62px;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 32% 25%,rgba(255,255,255,.9),transparent 18%),
+    linear-gradient(180deg,#fffaf1 0%,#f3ead8 45%,#d6eef2 46%,#0f6b85 76%,#073b54 100%);
   border:3px solid #fffaf1;
+  box-shadow:inset 0 -7px 15px rgba(3,30,33,.24), inset 0 7px 16px rgba(255,255,255,.48);
   overflow:hidden;
   transform-origin:center bottom;
   animation:lagunitoFloat 3s ease-in-out infinite;
 }
 
-.lagunito-crest{
+.lagunito-halo{
   position:absolute;
-  left:25px;
-  top:3px;
-  width:13px;
-  height:19px;
-  border-radius:12px 12px 2px 12px;
-  background:#e5bd66;
-  transform:rotate(-14deg);
-  box-shadow:-8px 4px 0 -3px #c5942d;
-}
-
-.lagunito-wing{
-  position:absolute;
-  left:-2px;
-  bottom:11px;
-  width:34px;
-  height:24px;
+  inset:4px;
   border-radius:50%;
-  background:linear-gradient(135deg,#dcebd4,#6d7749);
-  transform:rotate(-16deg);
-  opacity:.9;
+  border:1px solid rgba(197,148,45,.6);
+  opacity:.55;
 }
 
-.lagunito-beak{
-  position:absolute;
-  right:5px;
-  top:25px;
-  width:15px;
-  height:10px;
-  background:#c5942d;
-  clip-path:polygon(0 0,100% 50%,0 100%);
-  transform-origin:left center;
-}
-
-.lagunito-eye{
-  position:absolute;
-  top:22px;
-  width:6px;
-  height:6px;
-  border-radius:50%;
-  background:#062b2b;
-  animation:lagunitoBlink 4s infinite;
-}
-.lagunito-eye.left{left:23px}
-.lagunito-eye.right{right:22px}
-
-.lagunito-mouth{
+.lagunito-chef-dot{
   position:absolute;
   left:50%;
-  top:32px;
-  width:18px;
-  height:9px;
-  border-bottom:3px solid #fffaf1;
-  border-radius:0 0 18px 18px;
+  top:6px;
+  width:22px;
+  height:11px;
+  border-radius:999px 999px 6px 6px;
+  background:#fffaf1;
   transform:translateX(-50%);
+  box-shadow:-9px 2px 0 -3px #fffaf1,9px 2px 0 -3px #fffaf1,0 4px 0 -2px #e5bd66;
 }
 
-.lagunito-scarf{
+.lagunito-pro-eye{
   position:absolute;
-  left:6px;
-  bottom:14px;
-  width:45px;
-  height:6px;
-  border-radius:999px;
-  background:linear-gradient(90deg,#e5bd66,#fffaf1,#e5bd66);
-  transform:rotate(-6deg);
+  top:25px;
+  width:12px;
+  height:14px;
+  border-radius:50%;
+  background:#fffaf1;
+  box-shadow:0 2px 5px rgba(0,0,0,.22);
+  overflow:hidden;
+  animation:lagunitoBlink 4.2s infinite;
+}
+.lagunito-pro-eye.left{left:18px}
+.lagunito-pro-eye.right{right:18px}
+.lagunito-pro-eye span{
+  position:absolute;
+  left:4px;
+  top:4px;
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:#063032;
+  animation:lagunitoLook 5s ease-in-out infinite;
 }
 
-.lagunito-button.mood-happy .lagunito-bird{animation:lagunitoCelebrate .75s ease-in-out 2}
-.lagunito-button.mood-thinking .lagunito-bird{animation:lagunitoThink 1.2s ease-in-out infinite}
-.lagunito-button.mood-talking .lagunito-beak{animation:lagunitoTalk .35s ease-in-out infinite}
-.lagunito-button.mood-sleepy .lagunito-eye{height:2px;border-radius:999px;animation:none;top:25px}
-.lagunito-button.mood-sleepy .lagunito-mouth{width:12px;height:5px;border-bottom-color:#0d3031;opacity:.45}
+.lagunito-pro-brow{
+  position:absolute;
+  top:20px;
+  width:13px;
+  height:3px;
+  border-radius:999px;
+  background:rgba(8,45,45,.55);
+}
+.lagunito-pro-brow.left{left:17px;transform:rotate(8deg)}
+.lagunito-pro-brow.right{right:17px;transform:rotate(-8deg)}
+
+.lagunito-pro-smile{
+  position:absolute;
+  left:50%;
+  top:39px;
+  width:24px;
+  height:12px;
+  border-bottom:4px solid #fffaf1;
+  border-radius:0 0 24px 24px;
+  transform:translateX(-50%);
+  filter:drop-shadow(0 2px 2px rgba(0,0,0,.18));
+}
+
+.lagunito-pro-cheek{
+  position:absolute;
+  top:38px;
+  width:9px;
+  height:5px;
+  border-radius:50%;
+  background:rgba(229,189,102,.55);
+  opacity:.8;
+}
+.lagunito-pro-cheek.left{left:13px}
+.lagunito-pro-cheek.right{right:13px}
+
+.lagunito-waterline{
+  position:absolute;
+  left:12px;
+  right:12px;
+  bottom:14px;
+  height:5px;
+  border-radius:999px;
+  background:linear-gradient(90deg,transparent,#fffaf1,transparent);
+  opacity:.65;
+  transform:rotate(-4deg);
+}
+
+.lagunito-button.mood-happy .lagunito-face-pro{animation:lagunitoCelebrate .75s ease-in-out 2}
+.lagunito-button.mood-thinking .lagunito-face-pro{animation:lagunitoThink 1.2s ease-in-out infinite}
+.lagunito-button.mood-talking .lagunito-pro-smile{animation:lagunitoMouth .35s ease-in-out infinite}
+.lagunito-button.mood-sleepy .lagunito-pro-eye{height:3px;border-radius:999px;top:30px;animation:none;background:#062b2b}
+.lagunito-button.mood-sleepy .lagunito-pro-eye span{display:none}
+.lagunito-button.mood-sleepy .lagunito-pro-smile{width:14px;height:7px;border-bottom-color:#0d3031;opacity:.5}
 
 .lagunito-panel{
   position:absolute;
   right:0;
-  bottom:96px;
-  width:min(405px,calc(100vw - 32px));
+  bottom:100px;
+  width:min(420px,calc(100vw - 32px));
   padding:18px;
   border-radius:30px;
-  background:rgba(255,250,241,.97);
+  background:rgba(255,250,241,.98);
   border:1px solid rgba(197,148,45,.35);
   box-shadow:0 30px 80px rgba(8,45,45,.28);
   backdrop-filter:blur(18px);
@@ -191,7 +217,7 @@
 }
 
 .lagunito-messages{
-  max-height:285px;
+  max-height:300px;
   overflow:auto;
   display:grid;
   align-content:start;
@@ -298,12 +324,6 @@
   color:white;
 }
 
-.floating-cart.is-hidden{
-  opacity:0;
-  transform:translateY(16px) scale(.88);
-  pointer-events:none;
-}
-
 @keyframes lagunitoFloat{
   0%,100%{transform:translateY(0) rotate(-1deg)}
   50%{transform:translateY(-5px) rotate(1deg)}
@@ -313,21 +333,26 @@
   50%{transform:scale(1.1);opacity:.08}
 }
 @keyframes lagunitoBlink{
-  0%,92%,100%{transform:scaleY(1)}
-  95%{transform:scaleY(.12)}
+  0%,90%,100%{transform:scaleY(1)}
+  94%{transform:scaleY(.08)}
+}
+@keyframes lagunitoLook{
+  0%,30%,100%{transform:translate(0,0)}
+  45%{transform:translate(2px,1px)}
+  70%{transform:translate(-2px,1px)}
 }
 @keyframes lagunitoCelebrate{
-  0%,100%{transform:translateY(0) rotate(0)}
-  35%{transform:translateY(-8px) rotate(-8deg)}
-  70%{transform:translateY(-4px) rotate(8deg)}
+  0%,100%{transform:translateY(0) rotate(0) scale(1)}
+  35%{transform:translateY(-8px) rotate(-8deg) scale(1.04)}
+  70%{transform:translateY(-4px) rotate(8deg) scale(1.03)}
 }
 @keyframes lagunitoThink{
   0%,100%{transform:rotate(-4deg)}
   50%{transform:rotate(4deg)}
 }
-@keyframes lagunitoTalk{
-  0%,100%{transform:scaleX(1)}
-  50%{transform:scaleX(1.25)}
+@keyframes lagunitoMouth{
+  0%,100%{height:12px;width:24px}
+  50%{height:7px;width:16px}
 }
 @keyframes lagunitoDots{
   0%,100%{transform:translateY(0);opacity:.45}
@@ -335,12 +360,10 @@
 }
 
 @media(max-width:760px){
-  .lagunito-wrap{right:92px;bottom:18px}
-  .lagunito-button{width:64px;height:64px}
-  .lagunito-bird{width:48px;height:48px}
-  .lagunito-eye.left{left:19px}
-  .lagunito-eye.right{right:18px}
+  .lagunito-wrap{right:18px;bottom:18px}
+  .lagunito-button{width:66px;height:66px}
+  .lagunito-face-pro{width:50px;height:50px}
   .lagunito-tip{display:none}
-  .lagunito-panel{right:-76px;bottom:78px;width:min(360px,calc(100vw - 24px))}
+  .lagunito-panel{right:0;bottom:82px;width:min(360px,calc(100vw - 24px))}
   .lagunito-actions{grid-template-columns:1fr}
 }
