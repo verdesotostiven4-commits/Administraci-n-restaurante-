@@ -324,6 +324,10 @@
   color:white;
 }
 
+.floating-cart{
+  display:none!important;
+}
+
 @keyframes lagunitoFloat{
   0%,100%{transform:translateY(0) rotate(-1deg)}
   50%{transform:translateY(-5px) rotate(1deg)}
