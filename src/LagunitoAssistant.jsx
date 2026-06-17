@@ -1,42 +1,22 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, MapPin, ShoppingBag, Sparkles, X, Send, Utensils, Cookie, WalletCards, Clock3 } from 'lucide-react';
+import { MessageCircle, MapPin, ShoppingBag, Sparkles, X, Send, Utensils, Cookie, WalletCards, Clock3, Calculator } from 'lucide-react';
 import './lagunito.css';
 
 const quickReplies = [
-  {
-    label: 'Recomiéndame algo',
-    intent: 'recommend',
-    icon: Utensils,
-  },
-  {
-    label: 'Quiero un postre',
-    intent: 'dessert',
-    icon: Cookie,
-  },
-  {
-    label: 'Algo económico',
-    intent: 'budget',
-    icon: WalletCards,
-  },
-  {
-    label: '¿Cómo llego?',
-    intent: 'location',
-    icon: MapPin,
-  },
-  {
-    label: 'Hacer pedido',
-    intent: 'order',
-    icon: ShoppingBag,
-  },
-  {
-    label: 'Horario',
-    intent: 'hours',
-    icon: Clock3,
-  },
+  { label: 'Hola Lagunito', intent: 'greeting', icon: MessageCircle },
+  { label: 'Recomiéndame algo', intent: 'recommend', icon: Utensils },
+  { label: 'Quiero un postre', intent: 'dessert', icon: Cookie },
+  { label: 'Algo económico', intent: 'budget', icon: WalletCards },
+  { label: '¿Cómo llego?', intent: 'location', icon: MapPin },
+  { label: 'Hacer pedido', intent: 'order', icon: ShoppingBag },
 ];
 
 const replies = {
+  greeting: {
+    mood: 'happy',
+    answer: '¡Hola! Soy Lagunito, tu asistente de Villa Laguna. Puedo recomendarte platos, calcular un total, ayudarte con ubicación, pedido, horarios o sugerirte algo según tu antojo.',
+  },
   recommend: {
     mood: 'thinking',
     answer: 'Estoy pensando en algo bien Villa Laguna... Te recomiendo Seco de Chivo Tradicional si quieres un plato fuerte, Chicharrón Andino si buscas algo crocante, o Tres Leches para cerrar con algo dulce.',
@@ -69,27 +49,77 @@ const replies = {
   },
   hours: {
     mood: 'talking',
-    answer: 'El horario puede ajustarse según atención del restaurante. Por ahora, lo más seguro es confirmar por WhatsApp antes de ir o hacer un pedido.',
+    answer: 'El horario puede variar según la atención del restaurante. Lo más seguro es confirmar por WhatsApp antes de ir o hacer un pedido.',
     action: 'Contactar',
     hash: '#ubicacion',
   },
+  ingredients: {
+    mood: 'talking',
+    answer: 'En cada producto de la tienda puedes revisar su descripción, características e ingredientes. Si buscas algo con queso, te recomiendo Empanadas de Queso o Higos con Queso.',
+    action: 'Ver tienda',
+    hash: '#tienda',
+  },
+  family: {
+    mood: 'happy',
+    answer: 'Para compartir en familia te recomiendo Seco de Chivo, Lomo Saltado de la Villa o Chicharrón Andino. Son opciones con buen sabor, presencia y porciones ideales para disfrutar juntos.',
+    action: 'Ver platos',
+    hash: '#tienda',
+  },
+  thanks: {
+    mood: 'happy',
+    answer: '¡Con gusto! Estoy aquí para ayudarte a vivir una mejor experiencia en Villa Laguna.',
+  },
   unknown: {
     mood: 'thinking',
-    answer: 'Puedo ayudarte con recomendaciones, postres, platos económicos, ubicación o pedidos. Prueba preguntarme: “quiero algo típico”, “algo barato” o “quiero un postre”.',
+    answer: 'Puedo ayudarte con recomendaciones, postres, platos económicos, ingredientes, ubicación, pedidos, horarios o cálculos de total. Ejemplo: “si compro uno de 10 y otro de 3, ¿cuánto es?”.',
     action: 'Ver tienda',
     hash: '#tienda',
   },
 };
 
+function normalize(text) {
+  return text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+
+function formatMoney(value) {
+  return `$${value.toFixed(2)}`;
+}
+
+function detectCalculation(text) {
+  const value = normalize(text).replace(/,/g, '.');
+  const numbers = value.match(/\d+(?:\.\d+)?/g)?.map(Number) || [];
+  const wantsTotal = /(total|cuanto|cuánto|suma|sumar|mas|más|\+|pagar|costaria|costaría|valor|precio)/i.test(text);
+
+  if (numbers.length >= 2 && wantsTotal) {
+    const total = numbers.reduce((acc, number) => acc + number, 0);
+    return {
+      mood: 'talking',
+      answer: `Claro. Sumando ${numbers.map(formatMoney).join(' + ')} el total sería ${formatMoney(total)}. Recuerda que en el carrito también se calcula automáticamente cuando agregas productos.`,
+      action: 'Ir al carrito/tienda',
+      hash: '#tienda',
+    };
+  }
+
+  return null;
+}
+
 function detectIntent(text) {
-  const value = text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  const value = normalize(text);
+  if (/^(hola|buenas|hey|ola|holi|saludos)\b/.test(value)) return 'greeting';
+  if (value.includes('gracias') || value.includes('ok gracias') || value.includes('perfecto')) return 'thanks';
   if (value.includes('postre') || value.includes('dulce') || value.includes('tres leches') || value.includes('cheesecake') || value.includes('higo')) return 'dessert';
   if (value.includes('barato') || value.includes('economico') || value.includes('precio') || value.includes('presupuesto')) return 'budget';
   if (value.includes('ubicacion') || value.includes('llego') || value.includes('llegar') || value.includes('maps') || value.includes('direccion')) return 'location';
   if (value.includes('pedido') || value.includes('pedir') || value.includes('whatsapp') || value.includes('carrito')) return 'order';
-  if (value.includes('horario') || value.includes('hora') || value.includes('abierto')) return 'hours';
-  if (value.includes('recomienda') || value.includes('recomendacion') || value.includes('tipico') || value.includes('plato') || value.includes('comer')) return 'recommend';
+  if (value.includes('horario') || value.includes('hora') || value.includes('abierto') || value.includes('atienden')) return 'hours';
+  if (value.includes('ingrediente') || value.includes('lleva') || value.includes('queso') || value.includes('contiene')) return 'ingredients';
+  if (value.includes('familia') || value.includes('compartir') || value.includes('personas') || value.includes('grupo')) return 'family';
+  if (value.includes('recomienda') || value.includes('recomendacion') || value.includes('tipico') || value.includes('plato') || value.includes('comer') || value.includes('rico')) return 'recommend';
   return 'unknown';
+}
+
+function getReplyFromText(text) {
+  return detectCalculation(text) || replies[detectIntent(text)] || replies.unknown;
 }
 
 export default function LagunitoAssistant({ open, setOpen }) {
@@ -97,14 +127,27 @@ export default function LagunitoAssistant({ open, setOpen }) {
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [messages, setMessages] = useState([
-    { from: 'bot', text: '¡Hola! Soy Lagunito, tu guía de Villa Laguna. Puedo recomendarte platos, ayudarte con ubicación o armar tu pedido.' },
+    { from: 'bot', text: '¡Hola! Soy Lagunito, tu guía de Villa Laguna. Puedo recomendarte platos, calcular totales, ayudarte con ubicación o armar tu pedido.' },
   ]);
   const messagesEndRef = useRef(null);
   const sleepyTimer = useRef(null);
+  const wrapRef = useRef(null);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
   }, [messages, isTyping, open]);
+
+  useEffect(() => {
+    const handlePointerDown = (event) => {
+      if (!open) return;
+      if (wrapRef.current && !wrapRef.current.contains(event.target)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener('pointerdown', handlePointerDown);
+    return () => document.removeEventListener('pointerdown', handlePointerDown);
+  }, [open, setOpen]);
 
   useEffect(() => {
     clearTimeout(sleepyTimer.current);
@@ -122,9 +165,8 @@ export default function LagunitoAssistant({ open, setOpen }) {
     return '¿Te ayudo a elegir?';
   }, [open, mood]);
 
-  const botReply = (intent) => {
-    const reply = replies[intent] || replies.unknown;
-    setMood(reply.mood);
+  const botReply = (reply) => {
+    setMood(reply.mood || 'thinking');
     setIsTyping(true);
 
     setTimeout(() => {
@@ -135,12 +177,12 @@ export default function LagunitoAssistant({ open, setOpen }) {
         { from: 'bot', text: reply.answer, action: reply.action, hash: reply.hash },
       ]);
       setTimeout(() => setMood(reply.mood === 'thinking' ? 'happy' : 'idle'), 1400);
-    }, 650);
+    }, 620);
   };
 
   const choose = (reply) => {
     setMessages((current) => [...current, { from: 'user', text: reply.label }]);
-    botReply(reply.intent);
+    botReply(replies[reply.intent] || replies.unknown);
   };
 
   const submit = (event) => {
@@ -149,7 +191,7 @@ export default function LagunitoAssistant({ open, setOpen }) {
     if (!value) return;
     setInput('');
     setMessages((current) => [...current, { from: 'user', text: value }]);
-    botReply(detectIntent(value));
+    botReply(getReplyFromText(value));
   };
 
   const goTo = (hash) => {
@@ -158,7 +200,7 @@ export default function LagunitoAssistant({ open, setOpen }) {
   };
 
   return (
-    <div className={`lagunito-wrap ${open ? 'is-open' : ''}`}>
+    <div ref={wrapRef} className={`lagunito-wrap ${open ? 'is-open' : ''}`}>
       <AnimatePresence>
         {!open && (
           <motion.div
@@ -183,14 +225,17 @@ export default function LagunitoAssistant({ open, setOpen }) {
         whileHover={{ scale: 1.04 }}
         whileTap={{ scale: 0.96 }}
       >
-        <span className="lagunito-bird">
-          <span className="lagunito-crest" />
-          <span className="lagunito-wing" />
-          <span className="lagunito-beak" />
-          <span className="lagunito-eye left" />
-          <span className="lagunito-eye right" />
-          <span className="lagunito-mouth" />
-          <span className="lagunito-scarf" />
+        <span className="lagunito-face-pro">
+          <span className="lagunito-halo" />
+          <span className="lagunito-chef-dot" />
+          <span className="lagunito-pro-eye left"><span /></span>
+          <span className="lagunito-pro-eye right"><span /></span>
+          <span className="lagunito-pro-brow left" />
+          <span className="lagunito-pro-brow right" />
+          <span className="lagunito-pro-smile" />
+          <span className="lagunito-pro-cheek left" />
+          <span className="lagunito-pro-cheek right" />
+          <span className="lagunito-waterline" />
         </span>
       </motion.button>
 
@@ -243,7 +288,7 @@ export default function LagunitoAssistant({ open, setOpen }) {
               <input
                 value={input}
                 onChange={(event) => setInput(event.target.value)}
-                placeholder="Escribe: quiero algo típico..."
+                placeholder="Ej: hola, algo típico, 10 + 3..."
               />
               <button type="submit" aria-label="Enviar mensaje"><Send size={17} /></button>
             </form>
