@@ -1,57 +1,155 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, MapPin, ShoppingBag, Sparkles, X, ChefHat, Send } from 'lucide-react';
+import { MessageCircle, MapPin, ShoppingBag, Sparkles, X, Send, Utensils, Cookie, WalletCards, Clock3 } from 'lucide-react';
 import './lagunito.css';
 
 const quickReplies = [
   {
     label: 'Recomiéndame algo',
-    answer: 'Mi recomendación de la casa: Seco de Chivo Tradicional si quieres algo fuerte, Empanadas de Queso si buscas una entrada rápida, y Tres Leches para cerrar dulce.',
-    action: 'Ir a tienda',
-    hash: '#tienda',
+    intent: 'recommend',
+    icon: Utensils,
   },
   {
     label: 'Quiero un postre',
-    answer: 'Para postres, prueba Cheesecake de Maracuyá si quieres algo fresco, Higos con Queso si quieres tradición, o Tres Leches si buscas algo clásico.',
-    action: 'Ver tienda',
-    hash: '#tienda',
+    intent: 'dessert',
+    icon: Cookie,
+  },
+  {
+    label: 'Algo económico',
+    intent: 'budget',
+    icon: WalletCards,
   },
   {
     label: '¿Cómo llego?',
-    answer: 'Estamos en Cajabamba, Ecuador. Puedes abrir la ubicación en Google Maps desde el botón de ubicación de la página.',
-    action: 'Ubicación',
-    hash: '#ubicacion',
+    intent: 'location',
+    icon: MapPin,
   },
   {
     label: 'Hacer pedido',
-    answer: 'Agrega tus platos al carrito y luego envía el pedido por WhatsApp. Yo te acompaño mientras eliges.',
-    action: 'Armar pedido',
-    hash: '#tienda',
+    intent: 'order',
+    icon: ShoppingBag,
+  },
+  {
+    label: 'Horario',
+    intent: 'hours',
+    icon: Clock3,
   },
 ];
 
-export default function LagunitoAssistant() {
-  const [open, setOpen] = useState(false);
-  const [mood, setMood] = useState('saludo');
+const replies = {
+  recommend: {
+    mood: 'thinking',
+    answer: 'Estoy pensando en algo bien Villa Laguna... Te recomiendo Seco de Chivo Tradicional si quieres un plato fuerte, Chicharrón Andino si buscas algo crocante, o Tres Leches para cerrar con algo dulce.',
+    action: 'Ver recomendaciones',
+    hash: '#tienda',
+  },
+  dessert: {
+    mood: 'happy',
+    answer: 'Para postres te iría perfecto el Cheesecake de Maracuyá si quieres algo fresco, Higos con Queso si buscas tradición, o Tres Leches si quieres un clásico familiar.',
+    action: 'Ver postres',
+    hash: '#tienda',
+  },
+  budget: {
+    mood: 'happy',
+    answer: 'Para algo rico y económico, mira las Empanadas de Queso o la Torta Tres Leches. Son buenas opciones para probar algo sin gastar mucho.',
+    action: 'Ir a tienda',
+    hash: '#tienda',
+  },
+  location: {
+    mood: 'talking',
+    answer: 'Estamos en Cajabamba, Ecuador. Puedes revisar la sección de ubicación y abrir Google Maps desde ahí para llegar más fácil.',
+    action: 'Ver ubicación',
+    hash: '#ubicacion',
+  },
+  order: {
+    mood: 'happy',
+    answer: 'Para pedir, agrega tus platos al carrito y luego envía el pedido por WhatsApp. Yo puedo ayudarte a elegir antes de confirmar.',
+    action: 'Armar pedido',
+    hash: '#tienda',
+  },
+  hours: {
+    mood: 'talking',
+    answer: 'El horario puede ajustarse según atención del restaurante. Por ahora, lo más seguro es confirmar por WhatsApp antes de ir o hacer un pedido.',
+    action: 'Contactar',
+    hash: '#ubicacion',
+  },
+  unknown: {
+    mood: 'thinking',
+    answer: 'Puedo ayudarte con recomendaciones, postres, platos económicos, ubicación o pedidos. Prueba preguntarme: “quiero algo típico”, “algo barato” o “quiero un postre”.',
+    action: 'Ver tienda',
+    hash: '#tienda',
+  },
+};
+
+function detectIntent(text) {
+  const value = text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  if (value.includes('postre') || value.includes('dulce') || value.includes('tres leches') || value.includes('cheesecake') || value.includes('higo')) return 'dessert';
+  if (value.includes('barato') || value.includes('economico') || value.includes('precio') || value.includes('presupuesto')) return 'budget';
+  if (value.includes('ubicacion') || value.includes('llego') || value.includes('llegar') || value.includes('maps') || value.includes('direccion')) return 'location';
+  if (value.includes('pedido') || value.includes('pedir') || value.includes('whatsapp') || value.includes('carrito')) return 'order';
+  if (value.includes('horario') || value.includes('hora') || value.includes('abierto')) return 'hours';
+  if (value.includes('recomienda') || value.includes('recomendacion') || value.includes('tipico') || value.includes('plato') || value.includes('comer')) return 'recommend';
+  return 'unknown';
+}
+
+export default function LagunitoAssistant({ open, setOpen }) {
+  const [mood, setMood] = useState('idle');
+  const [input, setInput] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
   const [messages, setMessages] = useState([
     { from: 'bot', text: '¡Hola! Soy Lagunito, tu guía de Villa Laguna. Puedo recomendarte platos, ayudarte con ubicación o armar tu pedido.' },
   ]);
+  const messagesEndRef = useRef(null);
+  const sleepyTimer = useRef(null);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }, [messages, isTyping, open]);
+
+  useEffect(() => {
+    clearTimeout(sleepyTimer.current);
+    if (!open) {
+      sleepyTimer.current = setTimeout(() => setMood('sleepy'), 14000);
+    }
+    return () => clearTimeout(sleepyTimer.current);
+  }, [open, messages]);
 
   const bubbleText = useMemo(() => {
     if (open) return 'Estoy listo para ayudarte';
-    if (mood === 'feliz') return '¡Buena elección!';
-    if (mood === 'pensando') return 'Estoy pensando...';
+    if (mood === 'happy') return '¡Buena elección!';
+    if (mood === 'thinking') return 'Estoy pensando...';
+    if (mood === 'sleepy') return 'Tócame si necesitas ayuda';
     return '¿Te ayudo a elegir?';
   }, [open, mood]);
 
+  const botReply = (intent) => {
+    const reply = replies[intent] || replies.unknown;
+    setMood(reply.mood);
+    setIsTyping(true);
+
+    setTimeout(() => {
+      setIsTyping(false);
+      setMood('talking');
+      setMessages((current) => [
+        ...current,
+        { from: 'bot', text: reply.answer, action: reply.action, hash: reply.hash },
+      ]);
+      setTimeout(() => setMood(reply.mood === 'thinking' ? 'happy' : 'idle'), 1400);
+    }, 650);
+  };
+
   const choose = (reply) => {
-    setMood('feliz');
-    setMessages((current) => [
-      ...current,
-      { from: 'user', text: reply.label },
-      { from: 'bot', text: reply.answer, action: reply.action, hash: reply.hash },
-    ]);
-    setTimeout(() => setMood('saludo'), 1200);
+    setMessages((current) => [...current, { from: 'user', text: reply.label }]);
+    botReply(reply.intent);
+  };
+
+  const submit = (event) => {
+    event.preventDefault();
+    const value = input.trim();
+    if (!value) return;
+    setInput('');
+    setMessages((current) => [...current, { from: 'user', text: value }]);
+    botReply(detectIntent(value));
   };
 
   const goTo = (hash) => {
@@ -60,7 +158,7 @@ export default function LagunitoAssistant() {
   };
 
   return (
-    <div className="lagunito-wrap">
+    <div className={`lagunito-wrap ${open ? 'is-open' : ''}`}>
       <AnimatePresence>
         {!open && (
           <motion.div
@@ -76,17 +174,23 @@ export default function LagunitoAssistant() {
 
       <motion.button
         className={`lagunito-button mood-${mood}`}
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          setOpen(true);
+          setMood('happy');
+          setTimeout(() => setMood('idle'), 900);
+        }}
         aria-label="Abrir asistente Lagunito"
         whileHover={{ scale: 1.04 }}
         whileTap={{ scale: 0.96 }}
       >
-        <span className="lagunito-face">
-          <span className="lagunito-hat"><ChefHat size={22} /></span>
+        <span className="lagunito-bird">
+          <span className="lagunito-crest" />
+          <span className="lagunito-wing" />
+          <span className="lagunito-beak" />
           <span className="lagunito-eye left" />
           <span className="lagunito-eye right" />
-          <span className="lagunito-smile" />
-          <span className="lagunito-shine" />
+          <span className="lagunito-mouth" />
+          <span className="lagunito-scarf" />
         </span>
       </motion.button>
 
@@ -115,20 +219,34 @@ export default function LagunitoAssistant() {
                   {message.action && <button onClick={() => goTo(message.hash)}>{message.action}</button>}
                 </div>
               ))}
+              {isTyping && (
+                <div className="lagunito-message bot typing">
+                  <span /> <span /> <span />
+                </div>
+              )}
+              <div ref={messagesEndRef} />
             </div>
 
             <div className="lagunito-actions">
-              {quickReplies.map((reply) => (
-                <button key={reply.label} onClick={() => choose(reply)}>
-                  {reply.label === '¿Cómo llego?' ? <MapPin size={15} /> : reply.label === 'Hacer pedido' ? <ShoppingBag size={15} /> : <MessageCircle size={15} />}
-                  {reply.label}
-                </button>
-              ))}
+              {quickReplies.map((reply) => {
+                const Icon = reply.icon;
+                return (
+                  <button key={reply.label} onClick={() => choose(reply)}>
+                    <Icon size={15} />
+                    {reply.label}
+                  </button>
+                );
+              })}
             </div>
 
-            <button className="lagunito-main-cta" onClick={() => goTo('#tienda')}>
-              <Send size={17} /> Ir a tienda virtual
-            </button>
+            <form className="lagunito-input" onSubmit={submit}>
+              <input
+                value={input}
+                onChange={(event) => setInput(event.target.value)}
+                placeholder="Escribe: quiero algo típico..."
+              />
+              <button type="submit" aria-label="Enviar mensaje"><Send size={17} /></button>
+            </form>
           </motion.aside>
         )}
       </AnimatePresence>
