@@ -24,6 +24,18 @@ export default function LagunitoAssistant({ open, setOpen, cart = [], cartTotal 
   const endRef = useRef(null);
   const wrapRef = useRef(null);
 
+  useEffect(() => {
+    document.title = 'Villa Laguna | Restaurante';
+    let icon = document.querySelector("link[rel='icon']");
+    if (!icon) {
+      icon = document.createElement('link');
+      icon.rel = 'icon';
+      document.head.appendChild(icon);
+    }
+    icon.type = 'image/svg+xml';
+    icon.href = '/favicon.svg';
+  }, []);
+
   useEffect(() => { endRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages, typing]);
   useEffect(() => {
     const close = (e) => { if (open && wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false); };
