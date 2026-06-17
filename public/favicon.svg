@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fffaf1"/>
+      <stop offset="1" stop-color="#e5bd66"/>
+    </linearGradient>
+    <linearGradient id="w" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#67bfd1"/>
+      <stop offset="1" stop-color="#073b54"/>
+    </linearGradient>
+  </defs>
+  <circle cx="64" cy="64" r="58" fill="url(#g)"/>
+  <circle cx="64" cy="64" r="50" fill="#fffaf1" stroke="#082d2d" stroke-width="4"/>
+  <path d="M23 67c11-20 24-31 41-43 16 12 28 23 41 43-10-8-20-13-30-16l-11-13-12 13c-10 3-20 8-29 16z" fill="#6c6f4e"/>
+  <path d="M24 76c12 7 25 7 40 0s28-7 40 0v10c-12-7-25-7-40 0s-28 7-40 0z" fill="url(#w)"/>
+  <path d="M28 92c11 5 23 5 36 0s25-5 36 0" fill="none" stroke="#e5bd66" stroke-width="5" stroke-linecap="round"/>
+  <text x="64" y="113" text-anchor="middle" font-size="18" font-family="Georgia, serif" font-weight="700" fill="#082d2d">VL</text>
+</svg>
