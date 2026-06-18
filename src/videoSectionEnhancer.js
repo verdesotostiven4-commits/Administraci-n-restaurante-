@@ -1,3 +1,5 @@
+const promoVideoDriveId = '1ZGandiBXnhUPywozS6HVfrkp9_nKN93V';
+
 function installVideoSection() {
   if (document.getElementById('vl-video-style')) return;
   const style = document.createElement('style');
@@ -8,8 +10,8 @@ function installVideoSection() {
     .vl-video-card:before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 14% 12%,rgba(229,189,102,.24),transparent 34%),radial-gradient(circle at 88% 18%,rgba(255,250,241,.12),transparent 28%),linear-gradient(90deg,rgba(255,250,241,.06),transparent);pointer-events:none}
     .vl-video-card:after{content:'Villa Laguna';position:absolute;right:34px;bottom:-12px;font-family:Cinzel,Georgia,serif;font-size:clamp(4rem,9vw,9rem);line-height:1;color:rgba(255,250,241,.045);pointer-events:none}
     .vl-video-copy{position:relative;z-index:1;color:#fffaf1}.vl-video-copy .eyebrow{color:#e5bd66;margin-bottom:10px;letter-spacing:.18em}.vl-video-copy h3{font-family:Cinzel,Georgia,serif;font-size:clamp(2.4rem,4.6vw,5rem);line-height:1;margin:0 0 14px;text-shadow:0 18px 42px rgba(0,0,0,.28)}.vl-video-copy p{color:rgba(255,250,241,.86);font-size:1.08rem;line-height:1.65;margin:0 0 20px;max-width:620px}.vl-video-copy span{display:inline-flex;align-items:center;gap:8px;border-radius:999px;background:rgba(255,250,241,.09);border:1px solid rgba(229,189,102,.34);padding:10px 16px;font-weight:950;color:#e5bd66}
-    .vl-video-frame{position:relative;z-index:1;aspect-ratio:16/9;border-radius:32px;overflow:hidden;background:linear-gradient(135deg,rgba(255,250,241,.13),rgba(255,250,241,.04));border:1px solid rgba(229,189,102,.42);display:grid;place-items:center;box-shadow:0 24px 62px rgba(0,0,0,.24),inset 0 0 0 1px rgba(255,255,255,.08)}
-    .vl-video-frame video,.vl-video-frame iframe{width:100%;height:100%;object-fit:cover;border:0;display:block}.vl-video-placeholder{text-align:center;color:#fffaf1;padding:28px}.vl-video-play{width:88px;height:88px;border-radius:50%;display:grid;place-items:center;margin:0 auto 16px;background:linear-gradient(135deg,#c5942d,#e5bd66);color:#082d2d;font-size:2.25rem;font-weight:900;box-shadow:0 18px 42px rgba(229,189,102,.28)}.vl-video-placeholder strong{display:block;font-size:1.18rem;margin-bottom:8px}.vl-video-placeholder small{display:block;color:rgba(255,250,241,.72);font-weight:700;line-height:1.45}
+    .vl-video-frame{position:relative;z-index:1;aspect-ratio:16/9;border-radius:32px;overflow:hidden;background:#031818;border:1px solid rgba(229,189,102,.42);display:block;box-shadow:0 24px 62px rgba(0,0,0,.24),inset 0 0 0 1px rgba(255,255,255,.08)}
+    .vl-video-frame iframe{width:100%;height:100%;object-fit:cover;border:0;display:block;background:#031818}.vl-video-placeholder{text-align:center;color:#fffaf1;padding:28px}.vl-video-play{width:88px;height:88px;border-radius:50%;display:grid;place-items:center;margin:0 auto 16px;background:linear-gradient(135deg,#c5942d,#e5bd66);color:#082d2d;font-size:2.25rem;font-weight:900;box-shadow:0 18px 42px rgba(229,189,102,.28)}.vl-video-placeholder strong{display:block;font-size:1.18rem;margin-bottom:8px}.vl-video-placeholder small{display:block;color:rgba(255,250,241,.72);font-weight:700;line-height:1.45}.vl-video-open{display:inline-flex!important;margin-top:14px!important;text-decoration:none!important;color:#082d2d!important;background:linear-gradient(135deg,#c5942d,#e5bd66)!important;border-radius:999px!important;padding:10px 16px!important;font-weight:950!important}
     .location-grid{align-items:start}.restaurant-gallery-card{transform:scale(.96);transform-origin:top center;opacity:.96}.restaurant-gallery-card .gallery-head h3{font-size:clamp(1.55rem,2.35vw,2.35rem)!important}.restaurant-gallery-card .gallery-head{margin-bottom:14px!important}
     @media(max-width:900px){.vl-video-section{margin-bottom:24px}.vl-video-card{grid-template-columns:1fr;padding:22px;border-radius:30px}.vl-video-copy h3{font-size:2.25rem}.restaurant-gallery-card{transform:none}}
   `;
@@ -28,15 +30,11 @@ function createVideoSection() {
       <div class="vl-video-copy">
         <p class="eyebrow">Video promocional</p>
         <h3>La experiencia Villa Laguna en video</h3>
-        <p>Este será el bloque principal para mostrar el video editado en CapCut: recorrido, ambiente, platos, página web y llamado a visitar o pedir por WhatsApp.</p>
+        <p>Conoce el ambiente, los sabores tradicionales, la atención y la experiencia de Villa Laguna en Cajabamba.</p>
         <span>🎬 Video principal del restaurante</span>
       </div>
       <div class="vl-video-frame">
-        <div class="vl-video-placeholder">
-          <div class="vl-video-play">▶</div>
-          <strong>Video promocional pendiente</strong>
-          <small>Cuando tengas el link del video, se reemplaza este bloque por el reproductor real.</small>
-        </div>
+        <iframe src="https://drive.google.com/file/d/${promoVideoDriveId}/preview" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>
       </div>
     </div>
   `;
