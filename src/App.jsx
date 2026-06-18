@@ -10,7 +10,7 @@ const brand = {
   horizontal: 'https://blogger.googleusercontent.com/img/a/AVvXsEg6759--HKCrx3xOaYthRW4dFBWKz35Nfp6CwGdbJ0pXbWz4qdQfnN8C9K0fa0veXINlhG7uM2ro4w3qA4mZ48cHNPOZQ1pOvtEIirKQU3FoKe9d40G3isa79shCQ-C5KtiG8fVqCdLC2FCp6Tw4KcjpYUqErm0MNi8S9KrlKIcQFjFwxCUIYzpcC4V2aE',
 };
 const heroBackground = 'https://blogger.googleusercontent.com/img/a/AVvXsEioL5ITOpJTxzGC6Go7Jhn6kPCRp1adkZ9wv2ST12waGKqeA7MfzZnelXhTEtfa6QESmniagY85kAbrDDqb-ANTz2PLySZNG35ljd30yPRzhAlF6ydbl_ujtxtXK69AczZK2lBTIyztfJaKFBrrIvQnP2EcN2r7ZqrqsrpfU8i9cXvI_o_lCpTI_SMnpu0';
-const orgChartImage = 'https://blogger.googleusercontent.com/img/a/AVvXsEiMPwjxuARp9UecjMAqLUTv0q8hEIN01E3ax1jHu-QUac1Mg8voNYa-0sled9cU4jfJBPYvQxssLE66L7eOwyl5tfr279dc_2v6ase9estz0OgZmWjmJuwl0xdSbAG1Za45Uu-RgduuvtZS-jXuXxAs4EQE7dXahf5KL-42KoMq_dId5g3diVGJ5-W0UHQ';
+const orgChartImage = 'https://blogger.googleusercontent.com/img/a/AVvXsEi5GzeLoZmBS_Wt8dLtjPJzSI7B1o9bKE7rvN-95-rENhD1GlOBzyqbK9Y8TtOKBMi51A455VwangnLf9uCBJqr-keXuZ5fC6PtsDHf5KdmAkjXeGNWXVLLEKdcEgc-LA4yjYvCGw6AyMq0oa04oRehLQgbr9VMb3Z5FXPYOFwuk_ZHLTu0h6Zs0njUwg8';
 const whatsappNumber = '593999999999';
 const mapsUrl = 'https://maps.app.goo.gl/2YEMvyfpp8Y15Euk9';
 
