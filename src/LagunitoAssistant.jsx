@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Send, Sparkles, X } from 'lucide-react';
 import './lagunito.css';
 import './galleryEnhancer.js';
+import './videoSectionEnhancer.js';
 
 const quick = ['Hola', 'Recomiéndame algo', 'Quiero un postre', 'Algo económico', '¿Cómo llego?', 'Hacer pedido'];
 
