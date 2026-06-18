@@ -1,6 +1,5 @@
 const promoVideoDriveId = '1ZGandiBXnhUPywozS6HVfrkp9_nKN93V';
 const promoVideoPreview = `https://drive.google.com/file/d/${promoVideoDriveId}/preview`;
-const promoVideoView = `https://drive.google.com/file/d/${promoVideoDriveId}/view`;
 
 function installVideoSection() {
   if (document.getElementById('vl-video-style')) return;
@@ -14,10 +13,9 @@ function installVideoSection() {
     .vl-video-copy{position:relative;z-index:1;color:#fffaf1}.vl-video-copy .eyebrow{color:#e5bd66;margin-bottom:10px;letter-spacing:.18em}.vl-video-copy h3{font-family:Cinzel,Georgia,serif;font-size:clamp(2.4rem,4.6vw,5rem);line-height:1;margin:0 0 14px;text-shadow:0 18px 42px rgba(0,0,0,.28)}.vl-video-copy p{color:rgba(255,250,241,.86);font-size:1.08rem;line-height:1.65;margin:0 0 20px;max-width:620px}.vl-video-copy span{display:inline-flex;align-items:center;gap:8px;border-radius:999px;background:rgba(255,250,241,.09);border:1px solid rgba(229,189,102,.34);padding:10px 16px;font-weight:950;color:#e5bd66}
     .vl-video-frame{position:relative;z-index:1;aspect-ratio:16/9;border-radius:32px;overflow:hidden;background:#031818;border:1px solid rgba(229,189,102,.42);display:block;box-shadow:0 24px 62px rgba(0,0,0,.24),inset 0 0 0 1px rgba(255,255,255,.08)}
     .vl-video-frame iframe{width:100%;height:100%;border:0;display:block;background:#031818}
-    .vl-video-frame:after{content:'Si quieres verlo sin controles de Drive, ábrelo en HD';position:absolute;right:16px;top:16px;z-index:2;border-radius:999px;padding:8px 12px;background:rgba(3,24,24,.72);border:1px solid rgba(229,189,102,.34);color:#fffaf1;font-size:.74rem;font-weight:950;letter-spacing:.04em;backdrop-filter:blur(10px);pointer-events:none;opacity:.88}
-    .vl-video-open{display:inline-flex!important;margin-top:14px!important;text-decoration:none!important;color:#082d2d!important;background:linear-gradient(135deg,#c5942d,#e5bd66)!important;border-radius:999px!important;padding:10px 16px!important;font-weight:950!important;box-shadow:0 14px 30px rgba(0,0,0,.22)!important}.vl-video-open:hover{transform:translateY(-2px)}
+    .vl-video-frame:before{content:'';position:absolute;inset:0;border-radius:32px;box-shadow:inset 0 0 0 1px rgba(255,250,241,.08),inset 0 -42px 80px rgba(3,24,24,.22);pointer-events:none;z-index:2}
     .location-grid{align-items:start}.restaurant-gallery-card{transform:scale(.96);transform-origin:top center;opacity:.96}.restaurant-gallery-card .gallery-head h3{font-size:clamp(1.55rem,2.35vw,2.35rem)!important}.restaurant-gallery-card .gallery-head{margin-bottom:14px!important}
-    @media(max-width:900px){.vl-video-section{margin-bottom:24px}.vl-video-card{grid-template-columns:1fr;padding:22px;border-radius:30px}.vl-video-copy h3{font-size:2.25rem}.restaurant-gallery-card{transform:none}.vl-video-frame:after{display:none}}
+    @media(max-width:900px){.vl-video-section{margin-bottom:24px}.vl-video-card{grid-template-columns:1fr;padding:22px;border-radius:30px}.vl-video-copy h3{font-size:2.25rem}.restaurant-gallery-card{transform:none}}
   `;
   document.head.appendChild(style);
 }
@@ -35,8 +33,7 @@ function createVideoSection() {
         <p class="eyebrow">Video promocional</p>
         <h3>La experiencia Villa Laguna en video</h3>
         <p>Conoce el ambiente, los sabores tradicionales, la atención y la experiencia de Villa Laguna en Cajabamba.</p>
-        <span>🎬 Video principal del restaurante</span><br />
-        <a class="vl-video-open" href="${promoVideoView}" target="_blank" rel="noreferrer">Abrir video en HD</a>
+        <span>🎬 Video principal del restaurante</span>
       </div>
       <div class="vl-video-frame">
         <iframe src="${promoVideoPreview}" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>
