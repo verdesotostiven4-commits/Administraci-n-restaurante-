@@ -12,10 +12,10 @@ function installVideoSection() {
     .vl-video-card:after{content:'Villa Laguna';position:absolute;right:34px;bottom:-12px;font-family:Cinzel,Georgia,serif;font-size:clamp(4rem,9vw,9rem);line-height:1;color:rgba(255,250,241,.045);pointer-events:none}
     .vl-video-copy{position:relative;z-index:1;color:#fffaf1}.vl-video-copy .eyebrow{color:#e5bd66;margin-bottom:10px;letter-spacing:.18em}.vl-video-copy h3{font-family:Cinzel,Georgia,serif;font-size:clamp(2.4rem,4.6vw,5rem);line-height:1;margin:0 0 14px;text-shadow:0 18px 42px rgba(0,0,0,.28)}.vl-video-copy p{color:rgba(255,250,241,.86);font-size:1.08rem;line-height:1.65;margin:0 0 20px;max-width:620px}.vl-video-copy span{display:inline-flex;align-items:center;gap:8px;border-radius:999px;background:rgba(255,250,241,.09);border:1px solid rgba(229,189,102,.34);padding:10px 16px;font-weight:950;color:#e5bd66}
     .vl-video-frame{position:relative;z-index:1;aspect-ratio:16/9;border-radius:32px;overflow:hidden;background:#031818;border:1px solid rgba(229,189,102,.42);display:block;box-shadow:0 24px 62px rgba(0,0,0,.24),inset 0 0 0 1px rgba(255,255,255,.08)}
-    .vl-video-frame iframe{width:100%;height:100%;border:0;display:block;background:#031818}
+    .vl-video-frame iframe{position:absolute;left:50%;top:0;width:calc(100% + 104px);height:100%;transform:translateX(-50%);border:0;display:block;background:#031818}
     .vl-video-frame:before{content:'';position:absolute;inset:0;border-radius:32px;box-shadow:inset 0 0 0 1px rgba(255,250,241,.08),inset 0 -42px 80px rgba(3,24,24,.22);pointer-events:none;z-index:2}
     .location-grid{align-items:start}.restaurant-gallery-card{transform:scale(.96);transform-origin:top center;opacity:.96}.restaurant-gallery-card .gallery-head h3{font-size:clamp(1.55rem,2.35vw,2.35rem)!important}.restaurant-gallery-card .gallery-head{margin-bottom:14px!important}
-    @media(max-width:900px){.vl-video-section{margin-bottom:24px}.vl-video-card{grid-template-columns:1fr;padding:22px;border-radius:30px}.vl-video-copy h3{font-size:2.25rem}.restaurant-gallery-card{transform:none}}
+    @media(max-width:900px){.vl-video-section{margin-bottom:24px}.vl-video-card{grid-template-columns:1fr;padding:22px;border-radius:30px}.vl-video-copy h3{font-size:2.25rem}.restaurant-gallery-card{transform:none}.vl-video-frame iframe{width:calc(100% + 76px)}}
   `;
   document.head.appendChild(style);
 }
